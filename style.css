@@ -1,0 +1,264 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-image: url(assets/img/BG7.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "Inter", sans-serif;
+  color: #ddd;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.39);
+  backdrop-filter: blur(15px);
+  background: rgba(0, 0, 0, 0.09);
+
+}
+
+.logo {
+  padding: 3rem 0rem;
+  margin: 0 auto;
+  max-width: 450px;
+}
+
+.logo img{
+  width: 100%;
+  height: auto;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+form#patientForm{
+  /* width: fit-content; */
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+
+.form-group input,
+.form-group textarea {
+  flex: 1;
+  padding: 12px 12px;
+  border: 2px solid #519ac9;
+  border-radius: 8px;
+  font-size: 14px;
+  background: transparent;
+  /* border-bottom: 2px solid #519ac9; */
+  overflow: hidden;
+  color: #fff;
+  font-weight: 600;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #4a90c2;
+}
+
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+input::placeholder {
+  color: #dfdfdf7e; /* Cambia il colore del placeholder */
+  font-weight: 600;
+  font-size: 14px; /* Cambia la dimensione del testo */
+  opacity: 0.7; /* Rende il testo semitrasparente */
+}
+
+textarea::placeholder{
+  color: #dfdfdf7e;
+  font-weight: 600;
+  font-size: 14px;
+  opacity: 0.7;
+  font-family: "Inter", sans-serif;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn-primary {
+  background-color:  #3a803c;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #4CAF50;
+}
+
+.btn-warning {
+  background-color: #f39c12;
+  color: white;
+}
+
+.btn-warning:hover {
+  background-color: #e67e22;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+.patient-list {
+  margin-top: 40px;
+}
+
+.patient-list h2 {
+  text-align: center;
+  color: #ddd;
+  margin-bottom: 20px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  color: #333;
+  font-weight: 600;
+}
+
+th {
+  background-color: #00315e;
+  color: #ddd;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+tr:hover {
+  background-color: #e3f2fd;
+}
+
+/* Stili per le note nella tabella */
+.note-cell {
+  position: relative;
+  max-width: 200px;
+}
+
+.note-text {
+  display: inline-block;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.expanded-note {
+  white-space: pre-wrap;
+  max-width: none;
+}
+
+.expand-btn {
+  background: none;
+  border: none;
+  color: #519ac9;
+  cursor: pointer;
+  font-size: 12px;
+  margin-left: 5px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  transition: background-color 0.2s;
+}
+
+.expand-btn:hover {
+  background-color: #e3f2fd;
+  color: #4a90c2;
+}
+
+.expand-btn:focus {
+  outline: none;
+}
+
+.action-btn {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+.edit-btn {
+  background-color: #f39c12;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #e67e22;
+}
+
+.empty-state {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
+}
+
+.alert {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  display: none;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
