@@ -40,7 +40,7 @@ body {
 
 form#patientForm{
   /* width: fit-content; */
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -66,8 +66,8 @@ form#patientForm{
 }
 
 .form-group textarea {
-  min-height: 80px;
-  resize: vertical;
+  min-height: 130px;
+  resize: none;
 }
 
 input::placeholder {
@@ -88,7 +88,7 @@ textarea::placeholder{
 .button-group {
   display: flex;
   gap: 15px;
-  justify-content: center;
+  justify-content: space-evenly;
   margin: 30px 0;
 }
 
@@ -157,11 +157,13 @@ th {
   padding: 12px;
   text-align: left;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 td {
   padding: 10px 12px;
   border-bottom: 1px solid #ddd;
+  text-transform: uppercase;
 }
 
 tr:nth-child(even) {
@@ -208,6 +210,14 @@ tr:hover {
 
 .expand-btn:focus {
   outline: none;
+}
+
+/* Stili per la colonna data */
+.date-cell {
+  white-space: nowrap;
+  font-size: 12px;
+  color: #666;
+  min-width: 120px;
 }
 
 .action-btn {

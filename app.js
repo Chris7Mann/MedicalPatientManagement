@@ -2,6 +2,42 @@ let patients = [];
 let nextId = 1;
 let editingPatientId = null;
 
+// Funzioni per la persistenza dei dati
+function saveToLocalStorage() {
+  try {
+    const data = {
+      patients: patients,
+      nextId: nextId
+    };
+    localStorage.setItem('patientsData', JSON.stringify(data));
+  } catch (error) {
+    console.error('Errore nel salvare i dati:', error);
+    showAlert('Errore nel salvare i dati', 'error');
+  }
+}
+
+function loadFromLocalStorage() {
+  try {
+    const savedData = localStorage.getItem('patientsData');
+    if (savedData) {
+      const data = JSON.parse(savedData);
+      patients = data.patients || [];
+      nextId = data.nextId || 1;
+      
+      // Aggiorna la tabella dopo aver caricato i dati
+      updateTable();
+      
+      console.log(`Caricati ${patients.length} pazienti dal localStorage`);
+    }
+  } catch (error) {
+    console.error('Errore nel caricare i dati:', error);
+    showAlert('Errore nel caricare i dati salvati', 'error');
+    // In caso di errore, inizializza con valori vuoti
+    patients = [];
+    nextId = 1;
+  }
+}
+
 function showAlert(message, type) {
   const alert = document.getElementById("alert");
   alert.textContent = message;
@@ -81,6 +117,17 @@ function toggleNote(patientId) {
   }
 }
 
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear();
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
+
 function createTableRow(patient) {
   const row = document.createElement('tr');
   
@@ -108,6 +155,12 @@ function createTableRow(patient) {
   const cartellaCell = document.createElement('td');
   cartellaCell.textContent = patient.numeroCartella;
   row.appendChild(cartellaCell);
+  
+  // Data Registrazione
+  const dataCell = document.createElement('td');
+  dataCell.className = 'date-cell';
+  dataCell.textContent = patient.dataRegistrazione ? formatDate(patient.dataRegistrazione) : '-';
+  row.appendChild(dataCell);
   
   // Note
   const noteCell = document.createElement('td');
@@ -177,10 +230,12 @@ function registraPaziente() {
         codiceFiscale,
         numeroCartella,
         note,
+        dataRegistrazione: patients[patientIndex].dataRegistrazione || new Date().toISOString(), // Mantieni la data originale o aggiungi una nuova
       };
 
       resetFormAfterEdit();
       showAlert("Paziente modificato con successo", "success");
+      saveToLocalStorage(); // Salva dopo la modifica
     }
   } else {
     // Modalità inserimento
@@ -199,10 +254,12 @@ function registraPaziente() {
       codiceFiscale,
       numeroCartella,
       note,
+      dataRegistrazione: new Date().toISOString(), // Aggiungi la data di registrazione
     };
 
     patients.push(patient);
     showAlert("Paziente registrato con successo", "success");
+    saveToLocalStorage(); // Salva dopo l'inserimento
   }
 
   updateTable();
@@ -284,7 +341,7 @@ function updateTable() {
     const emptyRow = document.createElement('tr');
     emptyRow.className = 'empty-state';
     const emptyCell = document.createElement('td');
-    emptyCell.colSpan = 6;
+    emptyCell.colSpan = 7; // Aumentato da 6 a 7 per includere la colonna data
     emptyCell.textContent = 'Nessun paziente registrato';
     emptyRow.appendChild(emptyCell);
     tbody.appendChild(emptyRow);
@@ -338,6 +395,7 @@ function cancellaTabella() {
 
     updateTable();
     document.getElementById("patientForm").reset();
+    saveToLocalStorage(); // Salva lo stato vuoto
     showAlert("Tabella cancellata con successo", "success");
   }
 }
@@ -352,6 +410,7 @@ function eliminaPaziente(id) {
     }
 
     updateTable();
+    saveToLocalStorage(); // Salva dopo l'eliminazione
     showAlert("Paziente eliminato con successo", "success");
   }
 }
@@ -362,3 +421,8 @@ document
   .addEventListener("input", function (e) {
     e.target.value = e.target.value.toUpperCase();
   });
+
+// Carica i dati all'avvio della pagina
+document.addEventListener('DOMContentLoaded', function() {
+  loadFromLocalStorage();
+});
